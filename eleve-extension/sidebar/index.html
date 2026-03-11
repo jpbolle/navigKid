@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NavigKid! - Élève</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Écran authentification -->
+    <div id="ecran-auth">
+      <div class="logo">🔍</div>
+      <h1>NavigKid!</h1>
+      <p class="sous-titre">Recherche guidée</p>
+
+      <!-- Onglets Connexion / Inscription -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="connexion">Connexion</button>
+        <button class="auth-tab" data-tab="inscription">Créer un compte</button>
+      </div>
+
+      <!-- Formulaire Connexion -->
+      <form id="form-login" class="auth-form">
+        <div class="champ">
+          <label for="login-email">Adresse e-mail</label>
+          <input type="email" id="login-email" placeholder="ton.email@ecole.fr" required>
+        </div>
+        <div class="champ">
+          <label for="login-password">Mot de passe</label>
+          <input type="password" id="login-password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-principal">Se connecter</button>
+      </form>
+
+      <!-- Formulaire Inscription -->
+      <form id="form-register" class="auth-form" hidden>
+        <div class="champ">
+          <label for="register-nom">Ton prénom et nom</label>
+          <input type="text" id="register-nom" placeholder="Ex: Marie Dupont" required>
+        </div>
+        <div class="champ">
+          <label for="register-email">Adresse e-mail</label>
+          <input type="email" id="register-email" placeholder="ton.email@ecole.fr" required>
+        </div>
+        <div class="champ">
+          <label for="register-password">Mot de passe</label>
+          <input type="password" id="register-password" placeholder="Minimum 6 caractères" minlength="6" required>
+        </div>
+        <button type="submit" class="btn-principal">Créer mon compte</button>
+      </form>
+
+      <p id="erreur-auth" class="erreur" hidden></p>
+    </div>
+
+    <!-- Écran choix questionnaire (après auth) -->
+    <div id="ecran-code" hidden>
+      <div class="user-bar">
+        <span id="user-nom" class="user-nom"></span>
+        <button id="btn-deconnexion" class="btn-deconnexion">Déconnexion</button>
+      </div>
+      <div class="carte" style="text-align: center; margin-top: 16px;">
+        <h3>📋 Rejoindre un questionnaire</h3>
+        <p class="aide-description">Entre le code donné par ton professeur.</p>
+        <form id="form-code">
+          <div class="champ">
+            <label for="code-acces">Code du questionnaire</label>
+            <input type="text" id="code-acces" placeholder="Ex: ABC123" maxlength="6" required style="text-align: center; font-size: 20px; letter-spacing: 4px; font-weight: 700;">
+          </div>
+          <button type="submit" class="btn-principal">Commencer</button>
+          <p id="erreur-code" class="erreur" hidden></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Écran questionnaire - Vue question unique -->
+    <div id="ecran-questionnaire" hidden>
+      <div class="user-bar">
+        <span id="user-nom-q" class="user-nom"></span>
+        <button id="btn-retour-code" class="btn-deconnexion">Changer</button>
+      </div>
+      <header>
+        <h2 id="titre-questionnaire"></h2>
+        <span class="badge" id="theme-questionnaire"></span>
+      </header>
+
+      <div id="consignes" class="carte">
+        <h3>📋 Consignes</h3>
+        <p id="texte-consignes"></p>
+      </div>
+
+      <!-- Navigation haut -->
+      <div class="question-nav">
+        <button id="btn-prev" class="btn-nav" disabled>&larr;</button>
+        <span id="question-compteur" class="question-compteur">Question 1 / 1</span>
+        <button id="btn-next" class="btn-nav">&rarr;</button>
+      </div>
+
+      <!-- Carte question unique -->
+      <div id="carte-question" class="carte carte-question">
+        <!-- Énoncé de la question -->
+        <div id="question-texte-zone"></div>
+
+        <!-- Bloc Recherche effectuée -->
+        <div class="recherche-bloc">
+          <h4 class="recherche-bloc-titre">🔍 Recherche effectuée</h4>
+
+          <!-- Mots-clés recherchés -->
+          <div class="tracking-section">
+            <h4 class="tracking-titre">🔎 Mots-clés recherchés</h4>
+            <div id="liste-mots-cles" class="tags"></div>
+            <p id="aucun-mot-cle" class="aide-description">Tes recherches Google apparaîtront ici.</p>
+          </div>
+
+          <!-- Sites consultés -->
+          <div class="tracking-section">
+            <h4 class="tracking-titre">📌 Sites consultés <span id="compteur-sites" class="compteur">0</span></h4>
+            <div id="liste-sites"></div>
+            <p id="aucun-site" class="aide-description">Clique sur un résultat Google pour l'ajouter ici.</p>
+          </div>
+
+          <!-- Passages soulignés -->
+          <div class="tracking-section">
+            <h4 class="tracking-titre">✏️ Passages soulignés <span id="compteur-passages" class="compteur">0</span></h4>
+            <div id="liste-passages"></div>
+            <p id="aucun-passage" class="aide-description">Surligne du texte sur une page web pour le collecter ici.</p>
+          </div>
+        </div>
+
+        <!-- Réponse (en bas) -->
+        <div class="reponse-bloc">
+          <h4 class="tracking-titre">✍️ Ta réponse</h4>
+          <div id="question-reponse"></div>
+        </div>
+      </div>
+
+      <!-- Dots navigation -->
+      <div id="question-dots" class="question-dots"></div>
+
+      <!-- Navigation bas -->
+      <div class="question-nav-bas">
+        <button id="btn-prev-bas" class="btn-secondaire" disabled>&larr; Précédente</button>
+        <button id="btn-next-bas" class="btn-secondaire">Suivante &rarr;</button>
+      </div>
+
+      <!-- Soumission -->
+      <div class="actions">
+        <button id="btn-soumettre" class="btn-principal">Envoyer mes réponses</button>
+        <p id="message-soumission" hidden></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK (local) -->
+  <script src="lib/firebase-app-compat.js"></script>
+  <script src="lib/firebase-auth-compat.js"></script>
+  <script src="lib/firebase-firestore-compat.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

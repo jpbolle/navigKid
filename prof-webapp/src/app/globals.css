@@ -1,0 +1,78 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap');
+
+@theme {
+  --color-primary: #2d6a5a;
+  --color-primary-dark: #1f4f43;
+  --color-primary-light: #e8f0ee;
+  --color-accent: #d4944c;
+  --color-accent-light: #fdf3e7;
+  --color-cream: #faf6f0;
+  --color-cream-dark: #f0ebe3;
+  --color-danger: #b44040;
+  --color-success: #2d6a5a;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+}
+
+/* Decorative divider like SAMR */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+}
+
+.divider span {
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+/* Subtle card border style */
+.carte-samr {
+  background: white;
+  border: 1.5px solid #d5cec4;
+  border-radius: 4px;
+  padding: 24px;
+  position: relative;
+}
+
+.carte-samr::before {
+  content: "";
+  position: absolute;
+  top: -1.5px;
+  left: -1.5px;
+  right: -1.5px;
+  height: 3px;
+  background: var(--color-primary);
+  border-radius: 4px 4px 0 0;
+}
+
+/* Label uppercase style */
+.label-upper {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #8a7f72;
+}
