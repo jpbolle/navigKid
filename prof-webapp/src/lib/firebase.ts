@@ -24,13 +24,12 @@ import {
 import type { Question, Questionnaire, Reponse, Recherche } from "./types";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyArYb0lK_mBrBCwXH-lZ4nRvZOQmr12uTg",
-  authDomain: "navigationrecherche.firebaseapp.com",
-  projectId: "navigationrecherche",
-  storageBucket: "navigationrecherche.firebasestorage.app",
-  messagingSenderId: "582995150366",
-  appId: "1:582995150366:web:092f83b50f51d98651900f",
-  measurementId: "G-GZ1V094CHD",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
